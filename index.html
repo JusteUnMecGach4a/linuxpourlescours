@@ -53,6 +53,7 @@
                 <a href="#section-4" class="text-teal-400 hover:text-teal-300 px-3 py-2 rounded-md text-sm font-medium transition duration-150 transform hover:bg-gray-700 hover:scale-105">Texte/Pipes</a>
                 <a href="#section-5" class="text-pink-400 hover:text-pink-300 px-3 py-2 rounded-md text-sm font-medium transition duration-150 transform hover:bg-gray-700 hover:scale-105">Admin</a>
                 <a href="#section-6" class="text-green-400 hover:text-green-300 px-3 py-2 rounded-md text-sm font-medium transition duration-150 transform hover:bg-gray-700 hover:scale-105">Système</a>
+                <a href="#section-7" class="text-orange-400 hover:text-orange-300 px-3 py-2 rounded-md text-sm font-medium transition duration-150 transform hover:bg-gray-700 hover:scale-105">Sécurité</a>
             </div>
         </div>
     </nav>
@@ -541,7 +542,7 @@
                             <h3 class="text-xl font-semibold text-white">adduser / deluser</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">**adduser** est un script convivial qui crée un nouvel utilisateur, son répertoire personnel, et demande son mot de passe.</p>
+                        <p class="text-gray-400 mb-3">**adduser** est un script convivial qui crée un nouvel utilisateur, son répertoire personnel, et demande son mot de passe. Il est **recommandé** sur Debian/LMDE plutôt que `useradd`.</p>
                         <div class="code-block">sudo adduser USER</div>
                         <p class="text-sm text-gray-500 mt-2">**deluser** supprime un utilisateur. Il faut ajouter `sudo` car ce sont des commandes d'administration.</p>
                          <!-- Détails supplémentaires -->
@@ -558,14 +559,14 @@
                             <h3 class="text-xl font-semibold text-white">passwd</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">Modifie le mot de passe de l'utilisateur. En tant que root (via `sudo`), vous pouvez changer n'importe quel mot de passe.</p>
-                        <div class="code-block">sudo passwd [USER]</div>
-                        <p class="text-sm text-gray-500 mt-2">Si le nom d'utilisateur est omis, la commande change le mot de passe de l'utilisateur qui l'exécute.</p>
+                        <p class="text-gray-400 mb-3">Modifie le mot de passe d'un utilisateur existant. C'est l'outil standard pour la gestion des mots de passe dans Linux.</p>
+                        <div class="code-block">passwd</div>
+                        <p class="text-sm text-gray-500 mt-2">Si vous êtes simple utilisateur et exécutez **passwd**, vous changez votre propre mot de passe. Si vous utilisez **sudo passwd USER**, vous changez celui d'un autre utilisateur sans connaître l'ancien.</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
-                            <p class="text-sm font-bold text-pink-300 mb-2">Mot de passe de l'utilisateur actuel :</p>
-                            <div class="code-block mb-2">passwd</div>
-                            <p class="text-xs text-gray-500">Demande l'ancien mot de passe, puis le nouveau à deux reprises.</p>
+                            <p class="text-sm font-bold text-pink-300 mb-2">Changer le mot de passe d'un utilisateur (Admin) :</p>
+                            <div class="code-block mb-2">sudo passwd mon_utilisateur</div>
+                            <p class="text-xs text-gray-500">Cette commande permet à l'administrateur de forcer le changement de mot de passe d'un utilisateur sans avoir besoin de l'ancien mot de passe.</p>
                         </div>
                     </div>
                     
@@ -640,6 +641,9 @@
                 </div>
             </section>
             
+            <!-- SEPARATEUR -->
+            <hr class="border-gray-700 my-10">
+
             <!-- SECTION 6: Informations Système Complémentaires -->
              <section id="section-6" class="mb-12 pt-4">
                 <h2 class="text-3xl font-bold text-green-400 border-b border-green-500 pb-2 mb-6">
@@ -711,6 +715,51 @@
                             <p class="text-sm font-bold text-green-300 mb-2">Trouver les plus gros dossiers :</p>
                             <div class="code-block mb-2">du -h --max-depth=1 | sort -hr</div>
                             <p class="text-xs text-gray-500">Affiche la taille de chaque sous-répertoire triée par taille décroissante (un outil puissant de nettoyage).</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEPARATEUR -->
+            <hr class="border-gray-700 my-10">
+
+            <!-- SECTION 7: Sécurité et Pentest -->
+            <section id="section-7" class="mb-12 pt-4">
+                <h2 class="text-3xl font-bold text-orange-400 border-b border-orange-500 pb-2 mb-6">
+                    7. Sécurité et Pentest
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    <!-- Commande: John the Ripper (john) -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-orange-400 transition command-card" onclick="toggleDetails(this)">
+                        <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">john (John the Ripper)</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Outil de test de sécurité utilisé pour **détecter les mots de passe faibles** sur les systèmes Unix/Linux en effectuant des attaques par dictionnaire ou par force brute. Souvent utilisé après l'extraction des hachages.</p>
+                        <div class="code-block">john --wordlist=rockyou.txt hashes.txt</div>
+                        <p class="text-sm text-gray-500 mt-2">John travaille principalement sur des fichiers contenant des **hachages** de mots de passe (souvent extraits du fichier `/etc/shadow`).</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-orange-300 mb-2">Afficher les mots de passe crackés :</p>
+                            <div class="code-block mb-2">john --show hashes.txt</div>
+                            <p class="text-xs text-gray-500">Affiche uniquement les mots de passe que l'outil a réussi à déchiffrer dans la session précédente.</p>
+                        </div>
+                    </div>
+
+                    <!-- Commande: unshadow -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-orange-400 transition command-card" onclick="toggleDetails(this)">
+                        <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">unshadow</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Commande utilitaire de John the Ripper. Elle combine les fichiers `/etc/passwd` et `/etc/shadow` en un seul fichier de format lisible par `john`.</p>
+                        <div class="code-block">sudo unshadow /etc/passwd /etc/shadow > hashes.txt</div>
+                        <p class="text-sm text-gray-500 mt-2">Le fichier de sortie `hashes.txt` contient les noms d'utilisateurs et leurs hachages associés, prêts à être analysés par **john**.</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-orange-300 mb-2">Processus typique :</p>
+                            <p class="text-xs text-gray-500">1. Extraire les hachages avec **unshadow**. 2. Lancer l'outil **john** sur le fichier généré. 3. Utiliser `john --show` pour voir les résultats.</p>
                         </div>
                     </div>
                 </div>
