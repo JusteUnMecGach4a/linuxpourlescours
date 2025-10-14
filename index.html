@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Commandes Linux Essentielles</title>
+    <!-- Ajout de l'icône du navigateur (Favicon: une balise de terminal) -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%2348BB78' d='M2 2h12v12H2zm11 10H3V4h10zM5 8h6v1H5z'/%3E%3Cpath fill='%23FFFFFF' d='M4 5h8v1H4zM4 7h4v1H4zM4 9h8v1H4z'/%3E%3C/svg%3E">
     <!-- Chargement de Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -464,9 +466,9 @@
                         <p class="text-sm text-gray-500 mt-2">**-d** définit le délimiteur (ici `:`) et **-f** (field) le champ (colonne) à afficher.</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
-                            <p class="text-sm font-bold text-teal-300 mb-2">Extraire les noms d'utilisateur :</p>
-                            <div class="code-block mb-2">cat /etc/passwd | cut -d':' -f1</div>
-                            <p class="text-xs text-gray-500">Affiche la première colonne (`-f1`) du fichier `/etc/passwd`, séparée par le délimiteur `:`.</p>
+                            <p class="text-sm font-bold text-teal-300 mb-2">Extraire les noms d'utilisateur et l'ID :</p>
+                            <div class="code-block mb-2">cat /etc/passwd | cut -d':' -f1,3</div>
+                            <p class="text-xs text-gray-500">Affiche la première colonne (nom d'utilisateur) et la troisième colonne (UID) du fichier `/etc/passwd`.</p>
                         </div>
                     </div>
                     
