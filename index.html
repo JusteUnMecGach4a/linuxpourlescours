@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commandes Linux Essentielles</title>
+    <!-- Chargement de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Configuration de la police Inter et thème sombre */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a202c; /* Gris très foncé pour un look terminal */
+        }
+        .code-block {
+            background-color: #2d3748; /* Arrière-plan pour les exemples de code */
+            color: #48bb78; /* Couleur verte pour la commande */
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem;
+            font-family: monospace;
+            overflow-x: auto;
+        }
+        /* Style pour les cartes cliquables */
+        .command-card {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .command-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="min-h-screen p-4 sm:p-8">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-2">
+                Le Terminal Linux
+            </h1>
+            <p class="text-lg text-gray-400">
+                Guide des commandes essentielles pour les distributions basées sur Debian (ex: LMDE, Mint, Ubuntu)
+            </p>
+        </header>
+
+        <main class="max-w-6xl mx-auto">
+            
+            <!-- SECTION 1: Mise à jour et Installation (APT) -->
+            <section class="mb-12">
+                <h2 class="text-3xl font-bold text-red-400 border-b border-red-500 pb-2 mb-6">
+                    1. Mise à jour et Installation (LMDE/Debian)
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    <!-- Commande: sudo apt update -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-red-400 transition command-card" onclick="toggleDetails(this)">
+                        <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">apt update</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Mise à jour des dépôts (liste les paquets disponibles).</p>
+                        <div class="code-block">sudo apt update</div>
+                        <p class="text-sm text-gray-500 mt-2">Doit être effectué avant toute installation ou mise à jour.</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-red-300 mb-2">Autres utilisations :</p>
+                            <div class="code-block mb-2">sudo apt clean</div>
+                            <p class="text-xs text-gray-500">Nettoyer le cache local des paquets téléchargés.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Commande: sudo apt upgrade -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-red-400 transition command-card" onclick="toggleDetails(this)">
+                        <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">apt upgrade</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Mise à jour des paquets installés (sans supprimer de paquets).</p>
+                        <div class="code-block">sudo apt upgrade</div>
+                        <p class="text-sm text-gray-500 mt-2">Met à jour la majorité des paquets en toute sécurité.</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-red-300 mb-2">Différence avec dist-upgrade :</p>
+                            <div class="code-block mb-2">sudo apt dist-upgrade</div>
+                            <p class="text-xs text-gray-500">Mise à jour de la distribution (peut installer/supprimer des paquets pour résoudre les dépendances).</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Commande: sudo apt install -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-red-400 transition command-card" onclick="toggleDetails(this)">
+                        <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">apt install</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Installation d'un nouveau paquet ou logiciel.</p>
+                        <div class="code-block">sudo apt install PACKAGE</div>
+                        <p class="text-sm text-gray-500 mt-2">Remplace l'ancienne commande `apt-get install`.</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-red-300 mb-2">Désinstallation :</p>
+                            <div class="code-block mb-2">sudo apt remove PACKAGE</div>
+                            <p class="text-xs text-gray-500">Désinstalle le paquet, mais garde les fichiers de configuration. Utilisez `purge` pour tout supprimer.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEPARATEUR -->
+            <hr class="border-gray-700 my-10">
+            
+            <!-- SECTION 2: Gestion des Fichiers et Dossiers (Opérations sur les répertoires) -->
+            <section class="mb-12">
+                <h2 class="text-3xl font-bold text-indigo-400 border-b border-indigo-500 pb-2 mb-6">
+                    2. Gestion des Fichiers et Dossiers
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Commande: cd (Change directory) -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-indigo-400 transition command-card" onclick="toggleDetails(this)">
+                        <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">cd</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Change directory - Charger un répertoire ou un chemin.</p>
+                        <div class="code-block">cd [DIRECTORY | PATH]</div>
+                        <p class="text-sm text-gray-500 mt-2">Aller au répertoire **cd /** (racine), **cd ..** (remonter), **cd ~** (perso).</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-indigo-300 mb-2">Autres utilisations :</p>
+                            <div class="code-block mb-2">cd /usr/bin</div>
+                            <p class="text-xs text-gray-500">Charger un répertoire à partir de la racine.</p>
+                        </div>
+                    </div>
+
+                    <!-- Commande: ls -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-indigo-400 transition command-card" onclick="toggleDetails(this)">
+                        <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">ls</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">list - Afficher le contenu d'un répertoire.</p>
+                        <div class="code-block">ls -la</div>
+                        <p class="text-sm text-gray-500 mt-2">Options : **-l** (format long), **-a** (affiche cachés).</p>
+
+                        <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-indigo-300 mb-2">Autres utilisations :</p>
+                            <div class="code-block mb-2">ls -l | less</div>
+                            <p class="text-xs text-gray-500">Afficher la liste longue page par page.</p>
+                        </div>
+                    </div>
+
+                    <!-- Commande: mkdir -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-indigo-400 transition command-card" onclick="toggleDetails(this)">
+                        <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">mkdir</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Créer un nouveau répertoire.</p>
+                        <div class="code-block">mkdir NOUVEAU_DOSSIER</div>
+                        <p class="text-sm text-gray-500 mt-2">Utilisez **-p** pour créer les dossiers parents.</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-indigo-300 mb-2">Autres utilisations :</p>
+                            <div class="code-block mb-2">mkdir -p backup/{images,docs}</div>
+                            <p class="text-xs text-gray-500">Créer plusieurs sous-répertoires imbriqués en une seule fois.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Commande: rmdir -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-indigo-400 transition command-card" onclick="toggleDetails(this)">
+                        <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">rmdir</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Supprimer un répertoire vide.</p>
+                        <div class="code-block">rmdir DOSSIER_VIDE</div>
+                        <p class="text-sm text-gray-500 mt-2">Ne fonctionne que si le répertoire est vide.</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-indigo-300 mb-2">Pour un dossier non vide :</p>
+                            <div class="code-block mb-2">rm -r DOSSIER_NON_VIDE</div>
+                            <p class="text-xs text-gray-500">Utilisez `rm -r` pour une suppression récursive (dangereux !).</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Commande: cp -R (Copier répertoire) -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-indigo-400 transition command-card" onclick="toggleDetails(this)">
+                         <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">cp -R</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Copier récursivement un répertoire.</p>
+                        <div class="code-block">cp -R SOURCE DEST</div>
+                        <p class="text-sm text-gray-500 mt-2">L'option **-R** (ou -r) est obligatoire pour les dossiers.</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-indigo-300 mb-2">Autres utilisations :</p>
+                            <div class="code-block mb-2">cp -a /source /destination</div>
+                            <p class="text-xs text-gray-500">Copier en mode archive (préserve les permissions, propriétaires, etc.).</p>
+                        </div>
+                    </div>
+
+                    <!-- Commande: mv (Déplacer/Renommer répertoire) -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-indigo-400 transition command-card" onclick="toggleDetails(this)">
+                        <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">mv</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Déplacer ou renommer un répertoire.</p>
+                        <div class="code-block">mv old_dir new_dir</div>
+                        <p class="text-sm text-gray-500 mt-2">Identique pour les fichiers ou les répertoires.</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-indigo-300 mb-2">Déplacer :</p>
+                            <div class="code-block mb-2">mv mon_dossier /tmp/backups/</div>
+                            <p class="text-xs text-gray-500">Déplace le dossier `mon_dossier` dans `/tmp/backups/`.</p>
+                        </div>
+                    </div>
+
+                    <!-- Commande: touch (Créer fichier) -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-indigo-400 transition command-card" onclick="toggleDetails(this)">
+                        <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">touch</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Créer un nouveau fichier vide.</p>
+                        <div class="code-block">touch FILE</div>
+                        <p class="text-sm text-gray-500 mt-2">Également utilisé pour mettre à jour l'horodatage d'un fichier existant.</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-indigo-300 mb-2">Mise à jour d'heure :</p>
+                            <div class="code-block mb-2">touch -t 202501011000 fichier.txt</div>
+                            <p class="text-xs text-gray-500">Définir l'horodatage au 1er janvier 2025 à 10:00.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Commande: cat (Afficher contenu) -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-indigo-400 transition command-card" onclick="toggleDetails(this)">
+                        <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">cat</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Afficher le contenu complet du fichier.</p>
+                        <div class="code-block">cat FILE</div>
+                        <p class="text-sm text-gray-500 mt-2">Idéal pour les petits fichiers. Utilisez `less` pour les grands.</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-indigo-300 mb-2">Concaténation :</p>
+                            <div class="code-block mb-2">cat f1.txt f2.txt > f_combo.txt</div>
+                            <p class="text-xs text-gray-500">Combiner le contenu de deux fichiers dans un troisième.</p>
+                        </div>
+                    </div>
+
+                    <!-- Commande: less (Page par page) -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-indigo-400 transition command-card" onclick="toggleDetails(this)">
+                        <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">less</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Afficher le contenu du fichier page par page.</p>
+                        <div class="code-block">less FILE</div>
+                        <p class="text-sm text-gray-500 mt-2">Naviguez avec les flèches ou la barre d'espace. Quitter avec **Q**.</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-indigo-300 mb-2">Recherche :</p>
+                            <div class="code-block mb-2">/terme</div>
+                            <p class="text-xs text-gray-500">Dans `less`, tapez `/terme` pour rechercher un mot.</p>
+                        </div>
+                    </div>
+
+                    <!-- Commande: nano (Édition de fichier) -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-indigo-400 transition command-card" onclick="toggleDetails(this)">
+                        <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">nano</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Éditer un fichier (éditeur de texte simple).</p>
+                        <div class="code-block">nano FILE</div>
+                        <p class="text-sm text-gray-500 mt-2">Utilisez **Ctrl+O** pour enregistrer et **Ctrl+X** pour quitter.</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-indigo-300 mb-2">Autres options :</p>
+                            <div class="code-block mb-2">sudo nano /etc/default/grub</div>
+                            <p class="text-xs text-gray-500">Éditer un fichier système nécessitant des privilèges root.</p>
+                        </div>
+                    </div>
+
+                    <!-- Commande: rm (Supprimer fichier) -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-indigo-400 transition command-card" onclick="toggleDetails(this)">
+                        <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">rm</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Supprimer un fichier (soyez prudent !).</p>
+                        <div class="code-block">rm fichier_a_supprimer.log</div>
+                        <p class="text-sm text-gray-500 mt-2">Utilisez **-r** pour les dossiers et **-f** pour forcer la suppression.</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-indigo-300 mb-2">ATTENTION :</p>
+                            <div class="code-block mb-2">rm -i fichier.txt</div>
+                            <p class="text-xs text-gray-500">Mode interactif (**-i**) pour demander confirmation avant de supprimer.</p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </section>
+
+            <!-- SEPARATEUR -->
+            <hr class="border-gray-700 my-10">
+
+            <!-- SECTION 3: Recherche de Fichiers et Programmes -->
+            <section class="mb-12">
+                <h2 class="text-3xl font-bold text-yellow-400 border-b border-yellow-500 pb-2 mb-6">
+                    3. Recherche et Emplacement
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    <!-- Commande: find (Répertoire) -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-yellow-400 transition command-card" onclick="toggleDetails(this)">
+                        <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">find (dir)</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Rechercher un répertoire à partir de la racine.</p>
+                        <div class="code-block">find / -type d -name "DIRECTORY"</div>
+                        <p class="text-sm text-gray-500 mt-2">**-type d** spécifie une recherche de répertoire.</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-yellow-300 mb-2">Recherche sensible à la casse :</p>
+                            <div class="code-block mb-2">find /home -iname "images"</div>
+                            <p class="text-xs text-gray-500">Utiliser **-iname** pour ignorer la casse lors de la recherche de fichiers/dossiers.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Commande: find (Fichier) -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-yellow-400 transition command-card" onclick="toggleDetails(this)">
+                        <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">find (file)</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Rechercher un fichier à partir de la racine.</p>
+                        <div class="code-block">find / -type f -name "FILE"</div>
+                        <p class="text-sm text-gray-500 mt-2">**-type f** spécifie une recherche de fichier.</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-yellow-300 mb-2">Recherche par taille :</p>
+                            <div class="code-block mb-2">find /var -size +10M</div>
+                            <p class="text-xs text-gray-500">Trouver les fichiers de plus de 10 Mo dans `/var`.</p>
+                        </div>
+                    </div>
+
+                    <!-- Commande: locate -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-yellow-400 transition command-card" onclick="toggleDetails(this)">
+                        <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">locate</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Rechercher un fichier rapidement (utilise une base de données).</p>
+                        <div class="code-block">locate FILE</div>
+                        <p class="text-sm text-gray-500 mt-2">Mettez à jour la base de données avec **sudo updatedb**.</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-yellow-300 mb-2">Mise à jour de la base :</p>
+                            <div class="code-block mb-2">sudo updatedb</div>
+                            <p class="text-xs text-gray-500">Mise à jour manuelle de la base de données `locate`.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Commande: whereis -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-yellow-400 transition command-card" onclick="toggleDetails(this)">
+                        <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">whereis</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Rechercher l'emplacement d'un programme (binaire, source et manuel).</p>
+                        <div class="code-block">whereis PROGRAM</div>
+                        <p class="text-sm text-gray-500 mt-2">Utile pour trouver les fichiers de configuration associés.</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-yellow-300 mb-2">Exemple :</p>
+                            <div class="code-block mb-2">whereis bash</div>
+                            <p class="text-xs text-gray-500">Affiche où se trouvent le binaire bash et sa documentation.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Commande: which -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-yellow-400 transition command-card" onclick="toggleDetails(this)">
+                        <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">which</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Rechercher le répertoire du binaire d'une commande.</p>
+                        <div class="code-block">which COMMAND</div>
+                        <p class="text-sm text-gray-500 mt-2">Indique le chemin d'exécution utilisé par le shell.</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-yellow-300 mb-2">Utile pour :</p>
+                            <div class="code-block mb-2">which python</div>
+                            <p class="text-xs text-gray-500">Vérifier quel binaire Python est utilisé sur votre système.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEPARATEUR -->
+            <hr class="border-gray-700 my-10">
+
+            <!-- SECTION 4: Opérations sur le texte, Pipes et Redirections -->
+            <section class="mb-12">
+                <h2 class="text-3xl font-bold text-teal-400 border-b border-teal-500 pb-2 mb-6">
+                    4. Texte, Pipes et Redirections
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    <!-- Commande: grep -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-teal-400 transition command-card" onclick="toggleDetails(this)">
+                        <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">grep</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Rechercher un terme (PATTERN) dans un fichier.</p>
+                        <div class="code-block">grep PATTERN FILE</div>
+                        <p class="text-sm text-gray-500 mt-2">Utilisez **-i** (ignorer la casse) ou **-n** (numéro de ligne).</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-teal-300 mb-2">Autres utilisations :</p>
+                            <div class="code-block mb-2">grep -r "erreur" /var/log/</div>
+                            <p class="text-xs text-gray-500">Recherche récursive (**-r**) d'un motif dans un répertoire.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Commande: cut -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-teal-400 transition command-card" onclick="toggleDetails(this)">
+                        <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">cut</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Couper des champs en fonction d'un délimiteur.</p>
+                        <div class="code-block">cut -d':' -f2 FILE</div>
+                        <p class="text-sm text-gray-500 mt-2">**-d** délimiteur, **-f** champ à afficher.</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-teal-300 mb-2">Exemple :</p>
+                            <div class="code-block mb-2">cat /etc/passwd | cut -d':' -f1</div>
+                            <p class="text-xs text-gray-500">Afficher la liste de tous les noms d'utilisateurs (`:` est le délimiteur).</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Commande: sort -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-teal-400 transition command-card" onclick="toggleDetails(this)">
+                        <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">sort</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Trier les lignes d'un fichier alphabétiquement (par défaut).</p>
+                        <div class="code-block">sort FILE</div>
+                        <p class="text-sm text-gray-500 mt-2">Utilisez **-r** pour trier à l'envers (reverse).</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-teal-300 mb-2">Trier par nombre :</p>
+                            <div class="code-block mb-2">sort -n numbers.txt</div>
+                            <p class="text-xs text-gray-500">Trier numériquement (**-n**) au lieu d'alphabétiquement.</p>
+                        </div>
+                    </div>
+
+                    <!-- Commande: Pipe (|) -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-teal-400 transition command-card" onclick="toggleDetails(this)">
+                        <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">| (Pipe)</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Transfère le résultat (la sortie standard) d'une commande à une autre commande.</p>
+                        <div class="code-block">COMMAND_1 | COMMAND_2</div>
+                        <p class="text-sm text-gray-500 mt-2">Le Pipe permet de chaîner des opérations complexes.</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-teal-300 mb-2">Exemple :</p>
+                            <div class="code-block mb-2">ls -l | grep "janvier"</div>
+                            <p class="text-xs text-gray-500">Liste tous les fichiers de janvier dans le répertoire actuel.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Commande: Redirection (>) -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-teal-400 transition command-card" onclick="toggleDetails(this)">
+                         <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">> / >></h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Redirection de la sortie : écrasement (>) ou ajout (>>).</p>
+                        <div class="code-block">COMMAND > OUT</div>
+                        <p class="text-sm text-gray-500 mt-2">**>>** est crucial pour ajouter des logs sans effacer le fichier.</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-teal-300 mb-2">Exemple d'ajout :</p>
+                            <div class="code-block mb-2">echo "ligne 3" >> mon_fichier.txt</div>
+                            <p class="text-xs text-gray-500">Ajoute "ligne 3" à la fin de `mon_fichier.txt`.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEPARATEUR -->
+            <hr class="border-gray-700 my-10">
+            
+            <!-- SECTION 5: Utilisateurs, Groupes et Permissions -->
+            <section class="mb-12">
+                <h2 class="text-3xl font-bold text-pink-400 border-b border-pink-500 pb-2 mb-6">
+                    5. Utilisateurs, Groupes et Permissions
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    <!-- Commande: adduser -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-pink-400 transition command-card" onclick="toggleDetails(this)">
+                         <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">adduser</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Ajouter un nouvel utilisateur au système.</p>
+                        <div class="code-block">sudo adduser USER</div>
+                        <p class="text-sm text-gray-500 mt-2">Crée le répertoire personnel, configure les shells et demande le mot de passe.</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-pink-300 mb-2">Supprimer un utilisateur :</p>
+                            <div class="code-block mb-2">sudo deluser USER</div>
+                            <p class="text-xs text-gray-500">Supprime l'utilisateur. Ajoutez `--remove-home` pour supprimer son répertoire personnel.</p>
+                        </div>
+                    </div>
+
+                    <!-- Commande: passwd -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-pink-400 transition command-card" onclick="toggleDetails(this)">
+                         <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">passwd</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Modifier le mot de passe d'un utilisateur.</p>
+                        <div class="code-block">sudo passwd [USER]</div>
+                        <p class="text-sm text-gray-500 mt-2">Si `USER` est omis, modifie le mot de passe de l'utilisateur courant.</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-pink-300 mb-2">Exemple :</p>
+                            <div class="code-block mb-2">passwd</div>
+                            <p class="text-xs text-gray-500">Changer votre propre mot de passe.</p>
+                        </div>
+                    </div>
+
+                    <!-- Commande: addgroup / delgroup -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-pink-400 transition command-card" onclick="toggleDetails(this)">
+                         <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">addgroup / delgroup</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Ajouter ou supprimer un groupe.</p>
+                        <div class="code-block">sudo addgroup GROUP</div>
+                        <p class="text-sm text-gray-500 mt-2">La suppression se fait avec **sudo delgroup GROUP**.</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-pink-300 mb-2">Ajouter un utilisateur à un groupe :</p>
+                            <div class="code-block mb-2">sudo usermod -aG GROUP USER</div>
+                            <p class="text-xs text-gray-500">Ajouter l'utilisateur au groupe sans le retirer des autres (**-aG**).</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Commande: chown -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-pink-400 transition command-card" onclick="toggleDetails(this)">
+                         <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">chown</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Changer le propriétaire et/ou le groupe d'un fichier/dossier.</p>
+                        <div class="code-block">sudo chown OWNER:GROUP FILE</div>
+                        <p class="text-sm text-gray-500 mt-2">Utilisez **OWNER:GROUP** pour changer les deux simultanément.</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-pink-300 mb-2">Changer seulement le groupe :</p>
+                            <div class="code-block mb-2">sudo chown :GROUP FILE</div>
+                            <p class="text-xs text-gray-500">Laisser le propriétaire vide mais spécifier le groupe change uniquement le groupe.</p>
+                        </div>
+                    </div>
+
+                    <!-- Commande: chmod -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-pink-400 transition command-card" onclick="toggleDetails(this)">
+                         <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">chmod</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Changer les permissions d'un fichier/dossier.</p>
+                        <div class="code-block">sudo chmod 755 FILE</div>
+                        <p class="text-sm text-gray-500 mt-2">**755** (propriétaire: rwx, groupe: rx, autres: rx). **chmod +x** rend exécutable.</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-pink-300 mb-2">Changer symboliquement :</p>
+                            <div class="code-block mb-2">chmod u+w,g-w,o-rwx FILE</div>
+                            <p class="text-xs text-gray-500">Donne l'écriture au propriétaire (**u+w**), enlève l'écriture au groupe (**g-w**), enlève toutes les permissions aux autres (**o-rwx**).</p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </section>
+            
+            <!-- SECTION 6: Informations Système Complémentaires -->
+             <section class="mb-12">
+                <h2 class="text-3xl font-bold text-green-400 border-b border-green-500 pb-2 mb-6">
+                    6. Système et Diagnostic
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Commande: systemctl -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-green-400 transition command-card" onclick="toggleDetails(this)">
+                         <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">systemctl</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Contrôle le système d'initialisation **systemd** (gestion des services).</p>
+                        <div class="code-block">sudo systemctl restart apache2</div>
+                        <p class="text-sm text-gray-500 mt-2">Commandes clés : **start**, **stop**, **restart**, **enable**, **disable**.</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-green-300 mb-2">État du service :</p>
+                            <div class="code-block mb-2">systemctl status nom_service</div>
+                            <p class="text-xs text-gray-500">Vérifier l'état actuel d'un service (actif, inactif, etc.).</p>
+                        </div>
+                    </div>
+
+                    <!-- Commande: top / htop -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-green-400 transition command-card" onclick="toggleDetails(this)">
+                         <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">top / htop</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Surveille l'activité du système (processus, mémoire, CPU) en temps réel.</p>
+                        <div class="code-block">htop</div>
+                        <p class="text-sm text-gray-500 mt-2">**htop** est une version plus conviviale de **top**.</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-green-300 mb-2">Raccourci htop :</p>
+                            <p class="text-xs text-gray-500">Appuyez sur **F4** pour filtrer la liste des processus par nom.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Commande: df / du -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-green-400 transition command-card" onclick="toggleDetails(this)">
+                         <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">df / du</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">**df** (Disk Free) espace disponible. **du** (Disk Usage) espace utilisé par les fichiers.</p>
+                        <div class="code-block">df -h ; du -sh *</div>
+                        <p class="text-sm text-gray-500 mt-2">L'option **-h** affiche les tailles lisibles par un humain.</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-green-300 mb-2">Utilisation avancée :</p>
+                            <div class="code-block mb-2">du -h --max-depth=1</div>
+                            <p class="text-xs text-gray-500">Affiche la taille de chaque dossier de premier niveau dans le répertoire actuel.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="text-center mt-12 py-4 text-gray-500 border-t border-gray-800">
+            <p>&copy; 2025 Guide des Commandes Linux - Développé avec Tailwind CSS.</p>
+        </footer>
+    </div>
+    
+    <script>
+        /**
+         * Fonction pour basculer la visibilité des détails supplémentaires d'une commande.
+         * @param {HTMLElement} element - La carte de commande cliquée.
+         */
+        function toggleDetails(element) {
+            // Cherche l'élément avec la classe 'extra-details' à l'intérieur de la carte cliquée
+            const details = element.querySelector('.extra-details');
+            if (details) {
+                // Bascule la classe 'hidden' de Tailwind pour afficher/masquer
+                details.classList.toggle('hidden');
+            }
+        }
+    </script>
+
+</body>
+</html>
