@@ -12,6 +12,7 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: #1a202c; /* Gris très foncé pour un look terminal */
+            padding-top: 64px; /* Espace pour la barre de navigation fixe */
         }
         .code-block {
             background-color: #2d3748; /* Arrière-plan pour les exemples de code */
@@ -30,9 +31,30 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+        .fixed-nav {
+            background-color: rgba(26, 32, 44, 0.95); /* Arrière-plan semi-transparent */
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+        }
     </style>
 </head>
 <body>
+    
+    <!-- Barre de Navigation Fixe -->
+    <nav class="fixed-nav w-full top-0 left-0 shadow-lg border-b border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-center h-16 space-x-2 sm:space-x-4 overflow-x-auto whitespace-nowrap">
+                <!-- Mise à jour des liens avec effets de survol -->
+                <a href="#section-1" class="text-red-400 hover:text-red-300 px-3 py-2 rounded-md text-sm font-medium transition duration-150 transform hover:bg-gray-700 hover:scale-105">APT</a>
+                <a href="#section-2" class="text-indigo-400 hover:text-indigo-300 px-3 py-2 rounded-md text-sm font-medium transition duration-150 transform hover:bg-gray-700 hover:scale-105">Fichiers</a>
+                <a href="#section-3" class="text-yellow-400 hover:text-yellow-300 px-3 py-2 rounded-md text-sm font-medium transition duration-150 transform hover:bg-gray-700 hover:scale-105">Recherche</a>
+                <a href="#section-4" class="text-teal-400 hover:text-teal-300 px-3 py-2 rounded-md text-sm font-medium transition duration-150 transform hover:bg-gray-700 hover:scale-105">Texte/Pipes</a>
+                <a href="#section-5" class="text-pink-400 hover:text-pink-300 px-3 py-2 rounded-md text-sm font-medium transition duration-150 transform hover:bg-gray-700 hover:scale-105">Admin</a>
+                <a href="#section-6" class="text-green-400 hover:text-green-300 px-3 py-2 rounded-md text-sm font-medium transition duration-150 transform hover:bg-gray-700 hover:scale-105">Système</a>
+            </div>
+        </div>
+    </nav>
+    <!-- Fin de la Barre de Navigation Fixe -->
 
     <div class="min-h-screen p-4 sm:p-8">
         <header class="text-center mb-10">
@@ -47,7 +69,7 @@
         <main class="max-w-6xl mx-auto">
             
             <!-- SECTION 1: Mise à jour et Installation (APT) -->
-            <section class="mb-12">
+            <section id="section-1" class="mb-12 pt-4">
                 <h2 class="text-3xl font-bold text-red-400 border-b border-red-500 pb-2 mb-6">
                     1. Mise à jour et Installation (LMDE/Debian)
                 </h2>
@@ -59,14 +81,14 @@
                             <h3 class="text-xl font-semibold text-white">apt update</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">Mise à jour des dépôts (liste les paquets disponibles).</p>
+                        <p class="text-gray-400 mb-3">Mise à jour de l'index des paquets disponibles à partir des sources configurées (dépôts). **Crucial** avant toute installation.</p>
                         <div class="code-block">sudo apt update</div>
-                        <p class="text-sm text-gray-500 mt-2">Doit être effectué avant toute installation ou mise à jour.</p>
+                        <p class="text-sm text-gray-500 mt-2">Doit être effectué avant toute installation ou mise à jour pour que le système connaisse les dernières versions.</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
-                            <p class="text-sm font-bold text-red-300 mb-2">Autres utilisations :</p>
+                            <p class="text-sm font-bold text-red-300 mb-2">Nettoyer le cache :</p>
                             <div class="code-block mb-2">sudo apt clean</div>
-                            <p class="text-xs text-gray-500">Nettoyer le cache local des paquets téléchargés.</p>
+                            <p class="text-xs text-gray-500">Supprime les fichiers de paquets téléchargés mais non utilisés, libérant de l'espace disque.</p>
                         </div>
                     </div>
                     
@@ -76,14 +98,14 @@
                             <h3 class="text-xl font-semibold text-white">apt upgrade</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">Mise à jour des paquets installés (sans supprimer de paquets).</p>
+                        <p class="text-gray-400 mb-3">Met à jour tous les paquets installés vers leurs versions les plus récentes. Elle **n'installe ni ne supprime** de paquets.</p>
                         <div class="code-block">sudo apt upgrade</div>
-                        <p class="text-sm text-gray-500 mt-2">Met à jour la majorité des paquets en toute sécurité.</p>
+                        <p class="text-sm text-gray-500 mt-2">C'est la méthode de mise à jour standard et recommandée pour la majorité des cas.</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
-                            <p class="text-sm font-bold text-red-300 mb-2">Différence avec dist-upgrade :</p>
+                            <p class="text-sm font-bold text-red-300 mb-2">Mise à jour complète :</p>
                             <div class="code-block mb-2">sudo apt dist-upgrade</div>
-                            <p class="text-xs text-gray-500">Mise à jour de la distribution (peut installer/supprimer des paquets pour résoudre les dépendances).</p>
+                            <p class="text-xs text-gray-500">Effectue une mise à jour de la distribution; peut **installer/supprimer** des paquets pour résoudre des dépendances, souvent utilisé lors d'un changement de version majeure de l'OS.</p>
                         </div>
                     </div>
                     
@@ -93,14 +115,14 @@
                             <h3 class="text-xl font-semibold text-white">apt install</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">Installation d'un nouveau paquet ou logiciel.</p>
+                        <p class="text-gray-400 mb-3">Télécharge et installe un nouveau paquet ou logiciel, ainsi que toutes ses dépendances nécessaires.</p>
                         <div class="code-block">sudo apt install PACKAGE</div>
-                        <p class="text-sm text-gray-500 mt-2">Remplace l'ancienne commande `apt-get install`.</p>
+                        <p class="text-sm text-gray-500 mt-2">Remplace l'ancienne commande `apt-get install`. Vous pouvez lister plusieurs paquets à installer en même temps.</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
                             <p class="text-sm font-bold text-red-300 mb-2">Désinstallation :</p>
                             <div class="code-block mb-2">sudo apt remove PACKAGE</div>
-                            <p class="text-xs text-gray-500">Désinstalle le paquet, mais garde les fichiers de configuration. Utilisez `purge` pour tout supprimer.</p>
+                            <p class="text-xs text-gray-500">Désinstalle le paquet. Utilisez **sudo apt purge PACKAGE** pour supprimer le paquet et ses fichiers de configuration (recommandé pour un nettoyage complet).</p>
                         </div>
                     </div>
                 </div>
@@ -110,7 +132,7 @@
             <hr class="border-gray-700 my-10">
             
             <!-- SECTION 2: Gestion des Fichiers et Dossiers (Opérations sur les répertoires) -->
-            <section class="mb-12">
+            <section id="section-2" class="mb-12 pt-4">
                 <h2 class="text-3xl font-bold text-indigo-400 border-b border-indigo-500 pb-2 mb-6">
                     2. Gestion des Fichiers et Dossiers
                 </h2>
@@ -122,14 +144,14 @@
                             <h3 class="text-xl font-semibold text-white">cd</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">Change directory - Charger un répertoire ou un chemin.</p>
+                        <p class="text-gray-400 mb-3">Change directory - **navigue** et change le répertoire de travail actuel dans le terminal.</p>
                         <div class="code-block">cd [DIRECTORY | PATH]</div>
-                        <p class="text-sm text-gray-500 mt-2">Aller au répertoire **cd /** (racine), **cd ..** (remonter), **cd ~** (perso).</p>
+                        <p class="text-sm text-gray-500 mt-2">Aller au répertoire <strong>cd /</strong> (racine), <strong>cd ..</strong> (remonter d'un niveau), <strong>cd ~</strong> (répertoire personnel), ou simplement **cd** seul pour aller au répertoire personnel.</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
-                            <p class="text-sm font-bold text-indigo-300 mb-2">Autres utilisations :</p>
-                            <div class="code-block mb-2">cd /usr/bin</div>
-                            <p class="text-xs text-gray-500">Charger un répertoire à partir de la racine.</p>
+                            <p class="text-sm font-bold text-indigo-300 mb-2">Naviguer rapidement :</p>
+                            <div class="code-block mb-2">cd -</div>
+                            <p class="text-xs text-gray-500">Retourne au **dernier** répertoire visité. Très pratique pour basculer entre deux dossiers.</p>
                         </div>
                     </div>
 
@@ -139,15 +161,15 @@
                             <h3 class="text-xl font-semibold text-white">ls</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">list - Afficher le contenu d'un répertoire.</p>
+                        <p class="text-gray-400 mb-3">list - Affiche la liste des fichiers et sous-répertoires contenus dans un répertoire.</p>
                         <div class="code-block">ls -la</div>
-                        <p class="text-sm text-gray-500 mt-2">Options : **-l** (format long), **-a** (affiche cachés).</p>
+                        <p class="text-sm text-gray-500 mt-2">Options clés : <strong>-l</strong> (format long, pour voir les permissions), <strong>-a</strong> (affiche les fichiers cachés, commençant par un point).</p>
 
                         <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
-                            <p class="text-sm font-bold text-indigo-300 mb-2">Autres utilisations :</p>
-                            <div class="code-block mb-2">ls -l | less</div>
-                            <p class="text-xs text-gray-500">Afficher la liste longue page par page.</p>
+                            <p class="text-sm font-bold text-indigo-300 mb-2">Autres utilisations courantes :</p>
+                            <div class="code-block mb-2">ls -lh</div>
+                            <p class="text-xs text-gray-500">Affiche le format long avec les tailles lisibles par l'humain (Mo, Go, etc.).</p>
                         </div>
                     </div>
 
@@ -157,14 +179,14 @@
                             <h3 class="text-xl font-semibold text-white">mkdir</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">Créer un nouveau répertoire.</p>
+                        <p class="text-gray-400 mb-3">Make Directory - Crée un nouveau répertoire à l'emplacement spécifié.</p>
                         <div class="code-block">mkdir NOUVEAU_DOSSIER</div>
-                        <p class="text-sm text-gray-500 mt-2">Utilisez **-p** pour créer les dossiers parents.</p>
+                        <p class="text-sm text-gray-500 mt-2">L'option <strong>-p</strong> est très utile pour créer des dossiers parents s'ils n'existent pas encore.</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
-                            <p class="text-sm font-bold text-indigo-300 mb-2">Autres utilisations :</p>
-                            <div class="code-block mb-2">mkdir -p backup/{images,docs}</div>
-                            <p class="text-xs text-gray-500">Créer plusieurs sous-répertoires imbriqués en une seule fois.</p>
+                            <p class="text-sm font-bold text-indigo-300 mb-2">Création imbriquée :</p>
+                            <div class="code-block mb-2">mkdir -p backup/images/2025</div>
+                            <p class="text-xs text-gray-500">Crée tous les dossiers nécessaires en une seule commande.</p>
                         </div>
                     </div>
                     
@@ -174,14 +196,14 @@
                             <h3 class="text-xl font-semibold text-white">rmdir</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">Supprimer un répertoire vide.</p>
+                        <p class="text-gray-400 mb-3">Remove Directory - Supprime un répertoire, **mais uniquement s'il est vide**.</p>
                         <div class="code-block">rmdir DOSSIER_VIDE</div>
-                        <p class="text-sm text-gray-500 mt-2">Ne fonctionne que si le répertoire est vide.</p>
+                        <p class="text-sm text-gray-500 mt-2">Pour un répertoire non vide, il faut utiliser la commande `rm` avec l'option `-r` (récursif).</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
-                            <p class="text-sm font-bold text-indigo-300 mb-2">Pour un dossier non vide :</p>
+                            <p class="text-sm font-bold text-indigo-300 mb-2">Suppression récursive (Non vide) :</p>
                             <div class="code-block mb-2">rm -r DOSSIER_NON_VIDE</div>
-                            <p class="text-xs text-gray-500">Utilisez `rm -r` pour une suppression récursive (dangereux !).</p>
+                            <p class="text-xs text-gray-500">**Attention** : La suppression avec `rm -r` est permanente et ne passe pas par la corbeille.</p>
                         </div>
                     </div>
                     
@@ -191,14 +213,14 @@
                             <h3 class="text-xl font-semibold text-white">cp -R</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">Copier récursivement un répertoire.</p>
+                        <p class="text-gray-400 mb-3">Copy - Copie récursivement un répertoire, y compris tout son contenu (sous-dossiers et fichiers) vers une destination.</p>
                         <div class="code-block">cp -R SOURCE DEST</div>
-                        <p class="text-sm text-gray-500 mt-2">L'option **-R** (ou -r) est obligatoire pour les dossiers.</p>
+                        <p class="text-sm text-gray-500 mt-2">L'option <strong>-R</strong> est **obligatoire** pour copier un dossier entier et non seulement son nom.</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
-                            <p class="text-sm font-bold text-indigo-300 mb-2">Autres utilisations :</p>
-                            <div class="code-block mb-2">cp -a /source /destination</div>
-                            <p class="text-xs text-gray-500">Copier en mode archive (préserve les permissions, propriétaires, etc.).</p>
+                            <p class="text-sm font-bold text-indigo-300 mb-2">Copie de fichiers spécifiques :</p>
+                            <div class="code-block mb-2">cp *.log /var/log/backup/</div>
+                            <p class="text-xs text-gray-500">Copie tous les fichiers terminant par `.log` dans le dossier de destination.</p>
                         </div>
                     </div>
 
@@ -208,14 +230,14 @@
                             <h3 class="text-xl font-semibold text-white">mv</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">Déplacer ou renommer un répertoire.</p>
+                        <p class="text-gray-400 mb-3">Move - **Déplace** un fichier ou un répertoire vers un autre emplacement, ou le **renomme** si la destination est dans le même répertoire.</p>
                         <div class="code-block">mv old_dir new_dir</div>
-                        <p class="text-sm text-gray-500 mt-2">Identique pour les fichiers ou les répertoires.</p>
+                        <p class="text-sm text-gray-500 mt-2">La commande <strong>mv</strong> est la même pour les fichiers ou les répertoires. Il n'y a pas de commande `rename` dédiée en standard.</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
-                            <p class="text-sm font-bold text-indigo-300 mb-2">Déplacer :</p>
-                            <div class="code-block mb-2">mv mon_dossier /tmp/backups/</div>
-                            <p class="text-xs text-gray-500">Déplace le dossier `mon_dossier` dans `/tmp/backups/`.</p>
+                            <p class="text-sm font-bold text-indigo-300 mb-2">Déplacement :</p>
+                            <div class="code-block mb-2">mv fichier.tmp /tmp/</div>
+                            <p class="text-xs text-gray-500">Déplace le fichier `fichier.tmp` dans le répertoire temporaire `/tmp/`.</p>
                         </div>
                     </div>
 
@@ -225,14 +247,14 @@
                             <h3 class="text-xl font-semibold text-white">touch</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">Créer un nouveau fichier vide.</p>
+                        <p class="text-gray-400 mb-3">Crée un nouveau fichier **vide** s'il n'existe pas, ou **met à jour l'horodatage** (date et heure de dernière modification) d'un fichier existant.</p>
                         <div class="code-block">touch FILE</div>
-                        <p class="text-sm text-gray-500 mt-2">Également utilisé pour mettre à jour l'horodatage d'un fichier existant.</p>
+                        <p class="text-sm text-gray-500 mt-2">Souvent utilisé pour créer rapidement un fichier placeholder ou pour marquer un fichier comme récemment modifié.</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
-                            <p class="text-sm font-bold text-indigo-300 mb-2">Mise à jour d'heure :</p>
-                            <div class="code-block mb-2">touch -t 202501011000 fichier.txt</div>
-                            <p class="text-xs text-gray-500">Définir l'horodatage au 1er janvier 2025 à 10:00.</p>
+                            <p class="text-sm font-bold text-indigo-300 mb-2">Créer un script shell :</p>
+                            <div class="code-block mb-2">touch script.sh && chmod +x script.sh</div>
+                            <p class="text-xs text-gray-500">Crée un fichier et le rend immédiatement exécutable.</p>
                         </div>
                     </div>
                     
@@ -242,14 +264,14 @@
                             <h3 class="text-xl font-semibold text-white">cat</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">Afficher le contenu complet du fichier.</p>
+                        <p class="text-gray-400 mb-3">Concatenate - Affiche le contenu complet d'un fichier directement dans la sortie standard. Idéal pour les petits fichiers de configuration.</p>
                         <div class="code-block">cat FILE</div>
-                        <p class="text-sm text-gray-500 mt-2">Idéal pour les petits fichiers. Utilisez `less` pour les grands.</p>
+                        <p class="text-sm text-gray-500 mt-2">Pour les fichiers volumineux, il est fortement recommandé d'utiliser `less` pour éviter de submerger le terminal.</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
-                            <p class="text-sm font-bold text-indigo-300 mb-2">Concaténation :</p>
-                            <div class="code-block mb-2">cat f1.txt f2.txt > f_combo.txt</div>
-                            <p class="text-xs text-gray-500">Combiner le contenu de deux fichiers dans un troisième.</p>
+                            <p class="text-sm font-bold text-indigo-300 mb-2">Afficher avec numéros de lignes :</p>
+                            <div class="code-block mb-2">cat -n fichier.txt</div>
+                            <p class="text-xs text-gray-500">Affiche le contenu en numérotant chaque ligne, utile pour le débogage.</p>
                         </div>
                     </div>
 
@@ -259,14 +281,14 @@
                             <h3 class="text-xl font-semibold text-white">less</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">Afficher le contenu du fichier page par page.</p>
+                        <p class="text-gray-400 mb-3">Affiche le contenu d'un fichier **page par page**, permettant la navigation et la recherche sans charger tout le fichier en mémoire.</p>
                         <div class="code-block">less FILE</div>
-                        <p class="text-sm text-gray-500 mt-2">Naviguez avec les flèches ou la barre d'espace. Quitter avec **Q**.</p>
+                        <p class="text-sm text-gray-500 mt-2">Naviguez avec les flèches ou la barre d'espace. Quittez l'affichage avec la touche <strong>Q</strong>. C'est le visualiseur de logs par excellence.</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
-                            <p class="text-sm font-bold text-indigo-300 mb-2">Recherche :</p>
-                            <div class="code-block mb-2">/terme</div>
-                            <p class="text-xs text-gray-500">Dans `less`, tapez `/terme` pour rechercher un mot.</p>
+                            <p class="text-sm font-bold text-indigo-300 mb-2">Rechercher dans less :</p>
+                            <div class="code-block mb-2">/terme (puis n pour l'occurrence suivante)</div>
+                            <p class="text-xs text-gray-500">Une fois dans `less`, tapez `/` suivi de votre motif pour rechercher un mot de haut en bas.</p>
                         </div>
                     </div>
 
@@ -276,14 +298,14 @@
                             <h3 class="text-xl font-semibold text-white">nano</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">Éditer un fichier (éditeur de texte simple).</p>
+                        <p class="text-gray-400 mb-3">Lance l'éditeur de texte **nano** dans le terminal. Il est simple et convivial, idéal pour les débutants et l'édition rapide de fichiers de configuration.</p>
                         <div class="code-block">nano FILE</div>
-                        <p class="text-sm text-gray-500 mt-2">Utilisez **Ctrl+O** pour enregistrer et **Ctrl+X** pour quitter.</p>
+                        <p class="text-sm text-gray-500 mt-2">Les commandes sont affichées en bas de l'écran : <strong>Ctrl+O</strong> pour enregistrer et <strong>Ctrl+X</strong> pour quitter.</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
-                            <p class="text-sm font-bold text-indigo-300 mb-2">Autres options :</p>
-                            <div class="code-block mb-2">sudo nano /etc/default/grub</div>
-                            <p class="text-xs text-gray-500">Éditer un fichier système nécessitant des privilèges root.</p>
+                            <p class="text-sm font-bold text-indigo-300 mb-2">Édition avec droits root :</p>
+                            <div class="code-block mb-2">sudo nano /etc/network/interfaces</div>
+                            <p class="text-xs text-gray-500">Utilisation obligatoire de **sudo** pour modifier les fichiers système.</p>
                         </div>
                     </div>
 
@@ -293,14 +315,14 @@
                             <h3 class="text-xl font-semibold text-white">rm</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">Supprimer un fichier (soyez prudent !).</p>
+                        <p class="text-gray-400 mb-3">Remove - **Supprime** définitivement un fichier ou un répertoire (avec l'option `-r`).</p>
                         <div class="code-block">rm fichier_a_supprimer.log</div>
-                        <p class="text-sm text-gray-500 mt-2">Utilisez **-r** pour les dossiers et **-f** pour forcer la suppression.</p>
+                        <p class="text-sm text-gray-500 mt-2">Utilisez **-r** pour les dossiers et **-f** pour forcer la suppression sans confirmation.</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
-                            <p class="text-sm font-bold text-indigo-300 mb-2">ATTENTION :</p>
+                            <p class="text-sm font-bold text-indigo-300 mb-2">Supprimer en mode sécurisé :</p>
                             <div class="code-block mb-2">rm -i fichier.txt</div>
-                            <p class="text-xs text-gray-500">Mode interactif (**-i**) pour demander confirmation avant de supprimer.</p>
+                            <p class="text-xs text-gray-500">Le mode interactif (<strong>-i</strong>) demande confirmation pour chaque suppression, une bonne habitude à prendre.</p>
                         </div>
                     </div>
                     
@@ -311,7 +333,7 @@
             <hr class="border-gray-700 my-10">
 
             <!-- SECTION 3: Recherche de Fichiers et Programmes -->
-            <section class="mb-12">
+            <section id="section-3" class="mb-12 pt-4">
                 <h2 class="text-3xl font-bold text-yellow-400 border-b border-yellow-500 pb-2 mb-6">
                     3. Recherche et Emplacement
                 </h2>
@@ -323,14 +345,14 @@
                             <h3 class="text-xl font-semibold text-white">find (dir)</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">Rechercher un répertoire à partir de la racine.</p>
+                        <p class="text-gray-400 mb-3">Recherche des fichiers ou répertoires dans une arborescence selon des critères précis (nom, type, taille, date, etc.).</p>
                         <div class="code-block">find / -type d -name "DIRECTORY"</div>
-                        <p class="text-sm text-gray-500 mt-2">**-type d** spécifie une recherche de répertoire.</p>
+                        <p class="text-sm text-gray-500 mt-2">**-type d** spécifie que l'on recherche un **dossier** (`directory`). **/** indique de commencer la recherche à la racine du système.</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
-                            <p class="text-sm font-bold text-yellow-300 mb-2">Recherche sensible à la casse :</p>
-                            <div class="code-block mb-2">find /home -iname "images"</div>
-                            <p class="text-xs text-gray-500">Utiliser **-iname** pour ignorer la casse lors de la recherche de fichiers/dossiers.</p>
+                            <p class="text-sm font-bold text-yellow-300 mb-2">Recherche insensible à la casse :</p>
+                            <div class="code-block mb-2">find /home -iname "Rapports"</div>
+                            <p class="text-xs text-gray-500">Utiliser **-iname** au lieu de `-name` pour ignorer la distinction majuscules/minuscules.</p>
                         </div>
                     </div>
                     
@@ -340,14 +362,14 @@
                             <h3 class="text-xl font-semibold text-white">find (file)</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">Rechercher un fichier à partir de la racine.</p>
+                        <p class="text-gray-400 mb-3">Rechercher un fichier spécifique à partir d'un point de départ donné.</p>
                         <div class="code-block">find / -type f -name "FILE"</div>
-                        <p class="text-sm text-gray-500 mt-2">**-type f** spécifie une recherche de fichier.</p>
+                        <p class="text-sm text-gray-500 mt-2">**-type f** spécifie que l'on recherche un **fichier** (`file`). L'astérisque `*` peut être utilisé pour les jokers : `find . -name "*.jpg"`.</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
                             <p class="text-sm font-bold text-yellow-300 mb-2">Recherche par taille :</p>
                             <div class="code-block mb-2">find /var -size +10M</div>
-                            <p class="text-xs text-gray-500">Trouver les fichiers de plus de 10 Mo dans `/var`.</p>
+                            <p class="text-xs text-gray-500">Trouve les fichiers de plus de 10 Mégaoctets dans le répertoire `/var`.</p>
                         </div>
                     </div>
 
@@ -357,14 +379,14 @@
                             <h3 class="text-xl font-semibold text-white">locate</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">Rechercher un fichier rapidement (utilise une base de données).</p>
+                        <p class="text-gray-400 mb-3">Recherche des fichiers très rapidement en consultant une **base de données** pré-indexée du système de fichiers.</p>
                         <div class="code-block">locate FILE</div>
-                        <p class="text-sm text-gray-500 mt-2">Mettez à jour la base de données avec **sudo updatedb**.</p>
+                        <p class="text-sm text-gray-500 mt-2">La base de données doit être mise à jour périodiquement (souvent la nuit) ou manuellement avec **sudo updatedb**.</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
                             <p class="text-sm font-bold text-yellow-300 mb-2">Mise à jour de la base :</p>
                             <div class="code-block mb-2">sudo updatedb</div>
-                            <p class="text-xs text-gray-500">Mise à jour manuelle de la base de données `locate`.</p>
+                            <p class="text-xs text-gray-500">Si vous venez de créer un fichier et que `locate` ne le trouve pas, exécutez cette commande.</p>
                         </div>
                     </div>
                     
@@ -374,14 +396,14 @@
                             <h3 class="text-xl font-semibold text-white">whereis</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">Rechercher l'emplacement d'un programme (binaire, source et manuel).</p>
+                        <p class="text-gray-400 mb-3">Recherche les fichiers binaires, la documentation (manuel) et les sources d'un programme donné.</p>
                         <div class="code-block">whereis PROGRAM</div>
-                        <p class="text-sm text-gray-500 mt-2">Utile pour trouver les fichiers de configuration associés.</p>
+                        <p class="text-sm text-gray-500 mt-2">Utile pour les administrateurs qui cherchent où se trouvent les fichiers de configuration ou la documentation locale du programme.</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
                             <p class="text-sm font-bold text-yellow-300 mb-2">Exemple :</p>
                             <div class="code-block mb-2">whereis bash</div>
-                            <p class="text-xs text-gray-500">Affiche où se trouvent le binaire bash et sa documentation.</p>
+                            <p class="text-xs text-gray-500">Donne l'emplacement du binaire (`/bin/bash`) et du manuel (`/usr/share/man/man1/bash.1.gz`).</p>
                         </div>
                     </div>
                     
@@ -391,14 +413,14 @@
                             <h3 class="text-xl font-semibold text-white">which</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">Rechercher le répertoire du binaire d'une commande.</p>
+                        <p class="text-gray-400 mb-3">Affiche le **chemin complet** du binaire qui sera exécuté par le shell pour une commande donnée. Répond à la question "quelle version de ce programme j'utilise ?".</p>
                         <div class="code-block">which COMMAND</div>
-                        <p class="text-sm text-gray-500 mt-2">Indique le chemin d'exécution utilisé par le shell.</p>
+                        <p class="text-sm text-gray-500 mt-2">Indique le chemin d'exécution réel, utile quand plusieurs versions du même outil sont installées.</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
-                            <p class="text-sm font-bold text-yellow-300 mb-2">Utile pour :</p>
-                            <div class="code-block mb-2">which python</div>
-                            <p class="text-xs text-gray-500">Vérifier quel binaire Python est utilisé sur votre système.</p>
+                            <p class="text-sm font-bold text-yellow-300 mb-2">Vérification du path :</p>
+                            <div class="code-block mb-2">which python3</div>
+                            <p class="text-xs text-gray-500">Confirme l'emplacement exact de l'interpréteur Python 3 utilisé par défaut.</p>
                         </div>
                     </div>
                 </div>
@@ -408,7 +430,7 @@
             <hr class="border-gray-700 my-10">
 
             <!-- SECTION 4: Opérations sur le texte, Pipes et Redirections -->
-            <section class="mb-12">
+            <section id="section-4" class="mb-12 pt-4">
                 <h2 class="text-3xl font-bold text-teal-400 border-b border-teal-500 pb-2 mb-6">
                     4. Texte, Pipes et Redirections
                 </h2>
@@ -420,14 +442,14 @@
                             <h3 class="text-xl font-semibold text-white">grep</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">Rechercher un terme (PATTERN) dans un fichier.</p>
+                        <p class="text-gray-400 mb-3">Global Regular Expression Print - **Recherche** des lignes correspondant à un motif (PATTERN) dans un ou plusieurs fichiers.</p>
                         <div class="code-block">grep PATTERN FILE</div>
-                        <p class="text-sm text-gray-500 mt-2">Utilisez **-i** (ignorer la casse) ou **-n** (numéro de ligne).</p>
+                        <p class="text-sm text-gray-500 mt-2">Options clés : <strong>-i</strong> (ignorer la casse), <strong>-n</strong> (afficher le numéro de ligne), et <strong>-v</strong> (inverser la recherche, pour exclure le motif).</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
-                            <p class="text-sm font-bold text-teal-300 mb-2">Autres utilisations :</p>
-                            <div class="code-block mb-2">grep -r "erreur" /var/log/</div>
-                            <p class="text-xs text-gray-500">Recherche récursive (**-r**) d'un motif dans un répertoire.</p>
+                            <p class="text-sm font-bold text-teal-300 mb-2">Recherche récursive dans les logs :</p>
+                            <div class="code-block mb-2">grep -r "Erreur fatale" /var/log/</div>
+                            <p class="text-xs text-gray-500">Recherche le motif dans tous les fichiers à partir de `/var/log/`.</p>
                         </div>
                     </div>
                     
@@ -437,14 +459,14 @@
                             <h3 class="text-xl font-semibold text-white">cut</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">Couper des champs en fonction d'un délimiteur.</p>
+                        <p class="text-gray-400 mb-3">Coupe des lignes de texte en sections (champs) basées sur un délimiteur spécifié, permettant d'extraire des colonnes de données.</p>
                         <div class="code-block">cut -d':' -f2 FILE</div>
-                        <p class="text-sm text-gray-500 mt-2">**-d** délimiteur, **-f** champ à afficher.</p>
+                        <p class="text-sm text-gray-500 mt-2">**-d** définit le délimiteur (ici `:`) et **-f** (field) le champ (colonne) à afficher.</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
-                            <p class="text-sm font-bold text-teal-300 mb-2">Exemple :</p>
+                            <p class="text-sm font-bold text-teal-300 mb-2">Extraire les noms d'utilisateur :</p>
                             <div class="code-block mb-2">cat /etc/passwd | cut -d':' -f1</div>
-                            <p class="text-xs text-gray-500">Afficher la liste de tous les noms d'utilisateurs (`:` est le délimiteur).</p>
+                            <p class="text-xs text-gray-500">Affiche la première colonne (`-f1`) du fichier `/etc/passwd`, séparée par le délimiteur `:`.</p>
                         </div>
                     </div>
                     
@@ -454,14 +476,14 @@
                             <h3 class="text-xl font-semibold text-white">sort</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">Trier les lignes d'un fichier alphabétiquement (par défaut).</p>
+                        <p class="text-gray-400 mb-3">Trie les lignes d'un fichier texte ou d'une entrée selon un ordre alphabétique par défaut.</p>
                         <div class="code-block">sort FILE</div>
-                        <p class="text-sm text-gray-500 mt-2">Utilisez **-r** pour trier à l'envers (reverse).</p>
+                        <p class="text-sm text-gray-500 mt-2">Utilisez **-r** pour trier à l'envers (ordre alphabétique inverse ou numérique décroissant).</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
-                            <p class="text-sm font-bold text-teal-300 mb-2">Trier par nombre :</p>
-                            <div class="code-block mb-2">sort -n numbers.txt</div>
-                            <p class="text-xs text-gray-500">Trier numériquement (**-n**) au lieu d'alphabétiquement.</p>
+                            <p class="text-sm font-bold text-teal-300 mb-2">Trier numériquement :</p>
+                            <div class="code-block mb-2">sort -n data.txt</div>
+                            <p class="text-xs text-gray-500">Force le tri numérique (<strong>-n</strong>) au lieu du tri par chaîne de caractères. Très important pour les nombres.</p>
                         </div>
                     </div>
 
@@ -471,14 +493,14 @@
                             <h3 class="text-xl font-semibold text-white">| (Pipe)</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">Transfère le résultat (la sortie standard) d'une commande à une autre commande.</p>
+                        <p class="text-gray-400 mb-3">Le **Pipe** (`|`) **chaîne** les commandes en redirigeant la **sortie** standard de la première commande vers l'**entrée** standard de la seconde.</p>
                         <div class="code-block">COMMAND_1 | COMMAND_2</div>
-                        <p class="text-sm text-gray-500 mt-2">Le Pipe permet de chaîner des opérations complexes.</p>
+                        <p class="text-sm text-gray-500 mt-2">Permet de créer des scripts complexes en combinant des utilitaires simples pour filtrer ou transformer des données.</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
-                            <p class="text-sm font-bold text-teal-300 mb-2">Exemple :</p>
-                            <div class="code-block mb-2">ls -l | grep "janvier"</div>
-                            <p class="text-xs text-gray-500">Liste tous les fichiers de janvier dans le répertoire actuel.</p>
+                            <p class="text-sm font-bold text-teal-300 mb-2">Filtrer des processus :</p>
+                            <div class="code-block mb-2">ps aux | grep "apache"</div>
+                            <p class="text-xs text-gray-500">Affiche tous les processus en cours, puis utilise `grep` pour filtrer uniquement ceux qui contiennent le mot "apache".</p>
                         </div>
                     </div>
                     
@@ -488,14 +510,14 @@
                             <h3 class="text-xl font-semibold text-white">> / >></h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">Redirection de la sortie : écrasement (>) ou ajout (>>).</p>
+                        <p class="text-gray-400 mb-3">Dirige la sortie standard d'une commande vers un fichier. **>** écrase le contenu. **>>** ajoute le contenu à la fin du fichier.</p>
                         <div class="code-block">COMMAND > OUT</div>
-                        <p class="text-sm text-gray-500 mt-2">**>>** est crucial pour ajouter des logs sans effacer le fichier.</p>
+                        <p class="text-sm text-gray-500 mt-2">**>>** est crucial pour les opérations de journalisation (`logging`), car il conserve les données précédentes.</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
-                            <p class="text-sm font-bold text-teal-300 mb-2">Exemple d'ajout :</p>
-                            <div class="code-block mb-2">echo "ligne 3" >> mon_fichier.txt</div>
-                            <p class="text-xs text-gray-500">Ajoute "ligne 3" à la fin de `mon_fichier.txt`.</p>
+                            <p class="text-sm font-bold text-teal-300 mb-2">Archiver une liste de fichiers :</p>
+                            <div class="code-block mb-2">ls -l > liste_fichiers.txt</div>
+                            <p class="text-xs text-gray-500">Écrit la sortie de `ls -l` dans le fichier `liste_fichiers.txt`, écrasant son contenu s'il existe déjà.</p>
                         </div>
                     </div>
                 </div>
@@ -505,26 +527,26 @@
             <hr class="border-gray-700 my-10">
             
             <!-- SECTION 5: Utilisateurs, Groupes et Permissions -->
-            <section class="mb-12">
+            <section id="section-5" class="mb-12 pt-4">
                 <h2 class="text-3xl font-bold text-pink-400 border-b border-pink-500 pb-2 mb-6">
                     5. Utilisateurs, Groupes et Permissions
                 </h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-                    <!-- Commande: adduser -->
+                    <!-- Commande: adduser / deluser -->
                     <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-pink-400 transition command-card" onclick="toggleDetails(this)">
                          <div class="mb-3 flex justify-between items-center">
-                            <h3 class="text-xl font-semibold text-white">adduser</h3>
+                            <h3 class="text-xl font-semibold text-white">adduser / deluser</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">Ajouter un nouvel utilisateur au système.</p>
+                        <p class="text-gray-400 mb-3">**adduser** est un script convivial qui crée un nouvel utilisateur, son répertoire personnel, et demande son mot de passe.</p>
                         <div class="code-block">sudo adduser USER</div>
-                        <p class="text-sm text-gray-500 mt-2">Crée le répertoire personnel, configure les shells et demande le mot de passe.</p>
+                        <p class="text-sm text-gray-500 mt-2">**deluser** supprime un utilisateur. Il faut ajouter `sudo` car ce sont des commandes d'administration.</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
-                            <p class="text-sm font-bold text-pink-300 mb-2">Supprimer un utilisateur :</p>
-                            <div class="code-block mb-2">sudo deluser USER</div>
-                            <p class="text-xs text-gray-500">Supprime l'utilisateur. Ajoutez `--remove-home` pour supprimer son répertoire personnel.</p>
+                            <p class="text-sm font-bold text-pink-300 mb-2">Suppression complète :</p>
+                            <div class="code-block mb-2">sudo deluser --remove-home USER</div>
+                            <p class="text-xs text-gray-500">Supprime l'utilisateur **et** son répertoire personnel pour un nettoyage complet du système.</p>
                         </div>
                     </div>
 
@@ -534,14 +556,31 @@
                             <h3 class="text-xl font-semibold text-white">passwd</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">Modifier le mot de passe d'un utilisateur.</p>
+                        <p class="text-gray-400 mb-3">Modifie le mot de passe de l'utilisateur. En tant que root (via `sudo`), vous pouvez changer n'importe quel mot de passe.</p>
                         <div class="code-block">sudo passwd [USER]</div>
-                        <p class="text-sm text-gray-500 mt-2">Si `USER` est omis, modifie le mot de passe de l'utilisateur courant.</p>
+                        <p class="text-sm text-gray-500 mt-2">Si le nom d'utilisateur est omis, la commande change le mot de passe de l'utilisateur qui l'exécute.</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
-                            <p class="text-sm font-bold text-pink-300 mb-2">Exemple :</p>
+                            <p class="text-sm font-bold text-pink-300 mb-2">Mot de passe de l'utilisateur actuel :</p>
                             <div class="code-block mb-2">passwd</div>
-                            <p class="text-xs text-gray-500">Changer votre propre mot de passe.</p>
+                            <p class="text-xs text-gray-500">Demande l'ancien mot de passe, puis le nouveau à deux reprises.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Commande: mkpasswd -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-pink-400 transition command-card" onclick="toggleDetails(this)">
+                        <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">mkpasswd</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Génère des mots de passe **hachés** (cryptés) en utilisant différents algorithmes. Utile pour la gestion des comptes via des scripts ou la modification des fichiers `shadow`.</p>
+                        <div class="code-block">mkpasswd -m sha-512</div>
+                        <p class="text-sm text-gray-500 mt-2">L'option **-m sha-512** utilise l'algorithme SHA-512, le standard le plus sécurisé dans les systèmes Linux récents.</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-pink-300 mb-2">Générer un mot de passe sécurisé :</p>
+                            <div class="code-block mb-2">mkpasswd -l 15 -d 3 -c 3 -C 3 -s 0</div>
+                            <p class="text-xs text-gray-500">Génère un mot de passe de 15 caractères, incluant au moins 3 chiffres, 3 minuscules et 3 majuscules, sans symboles.</p>
                         </div>
                     </div>
 
@@ -551,14 +590,14 @@
                             <h3 class="text-xl font-semibold text-white">addgroup / delgroup</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">Ajouter ou supprimer un groupe.</p>
+                        <p class="text-gray-400 mb-3">Crée ou supprime un groupe du système. Les groupes sont utilisés pour gérer les permissions d'accès partagées entre plusieurs utilisateurs.</p>
                         <div class="code-block">sudo addgroup GROUP</div>
-                        <p class="text-sm text-gray-500 mt-2">La suppression se fait avec **sudo delgroup GROUP**.</p>
+                        <p class="text-sm text-gray-500 mt-2">La gestion des utilisateurs et des groupes est une base fondamentale de l'administration Linux.</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
-                            <p class="text-sm font-bold text-pink-300 mb-2">Ajouter un utilisateur à un groupe :</p>
+                            <p class="text-sm font-bold text-pink-300 mb-2">Ajouter un utilisateur à un groupe secondaire :</p>
                             <div class="code-block mb-2">sudo usermod -aG GROUP USER</div>
-                            <p class="text-xs text-gray-500">Ajouter l'utilisateur au groupe sans le retirer des autres (**-aG**).</p>
+                            <p class="text-xs text-gray-500">La commande **usermod** avec l'option **-aG** ajoute l'utilisateur au groupe sans le retirer des autres groupes.</p>
                         </div>
                     </div>
                     
@@ -568,14 +607,14 @@
                             <h3 class="text-xl font-semibold text-white">chown</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">Changer le propriétaire et/ou le groupe d'un fichier/dossier.</p>
+                        <p class="text-gray-400 mb-3">Change Owner - Modifie le **propriétaire** et/ou le **groupe** d'un fichier ou d'un répertoire.</p>
                         <div class="code-block">sudo chown OWNER:GROUP FILE</div>
-                        <p class="text-sm text-gray-500 mt-2">Utilisez **OWNER:GROUP** pour changer les deux simultanément.</p>
+                        <p class="text-sm text-gray-500 mt-2">Le `:` (deux-points) sépare le propriétaire du groupe. L'utilisation de `sudo` est souvent requise.</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
-                            <p class="text-sm font-bold text-pink-300 mb-2">Changer seulement le groupe :</p>
-                            <div class="code-block mb-2">sudo chown :GROUP FILE</div>
-                            <p class="text-xs text-gray-500">Laisser le propriétaire vide mais spécifier le groupe change uniquement le groupe.</p>
+                            <p class="text-sm font-bold text-pink-300 mb-2">Changer le propriétaire et le groupe récursivement :</p>
+                            <div class="code-block mb-2">sudo chown -R www-data:www-data /var/www/html</div>
+                            <p class="text-xs text-gray-500">Change le propriétaire et le groupe pour le serveur web, y compris pour tous les sous-dossiers et fichiers (<strong>-R</strong>).</p>
                         </div>
                     </div>
 
@@ -585,14 +624,14 @@
                             <h3 class="text-xl font-semibold text-white">chmod</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">Changer les permissions d'un fichier/dossier.</p>
+                        <p class="text-400 mb-3">Change Mode - Modifie les **permissions** d'accès d'un fichier (lecture, écriture, exécution) en utilisant la notation octale (chiffres) ou symbolique.</p>
                         <div class="code-block">sudo chmod 755 FILE</div>
-                        <p class="text-sm text-gray-500 mt-2">**755** (propriétaire: rwx, groupe: rx, autres: rx). **chmod +x** rend exécutable.</p>
+                        <p class="text-sm text-gray-500 mt-2">**755** (propriétaire: rwx, groupe: rx, autres: rx). La commande <strong>chmod +x</strong> est une alternative pour rendre exécutable.</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
-                            <p class="text-sm font-bold text-pink-300 mb-2">Changer symboliquement :</p>
-                            <div class="code-block mb-2">chmod u+w,g-w,o-rwx FILE</div>
-                            <p class="text-xs text-gray-500">Donne l'écriture au propriétaire (**u+w**), enlève l'écriture au groupe (**g-w**), enlève toutes les permissions aux autres (**o-rwx**).</p>
+                            <p class="text-sm font-bold text-pink-300 mb-2">Notation symbolique :</p>
+                            <div class="code-block mb-2">chmod u+w,o-rwx FILE</div>
+                            <p class="text-xs text-gray-500">Donne l'écriture au propriétaire (<strong>u+w</strong>) et enlève toutes les permissions aux autres (<strong>o-rwx</strong>).</p>
                         </div>
                     </div>
                     
@@ -600,25 +639,43 @@
             </section>
             
             <!-- SECTION 6: Informations Système Complémentaires -->
-             <section class="mb-12">
+             <section id="section-6" class="mb-12 pt-4">
                 <h2 class="text-3xl font-bold text-green-400 border-b border-green-500 pb-2 mb-6">
                     6. Système et Diagnostic
                 </h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Commande: kill -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-green-400 transition command-card" onclick="toggleDetails(this)">
+                         <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">kill</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Envoie un **signal** à un processus pour le contrôler ou le terminer. Le processus est identifié par son **PID** (Process ID) que vous pouvez trouver avec `ps` ou `top`.</p>
+                        <div class="code-block">kill PID</div>
+                        <p class="text-sm text-gray-500 mt-2">Par défaut, envoie le signal <strong>TERM (15)</strong>, demandant au processus de s'arrêter proprement (sauvegarde des données avant arrêt).</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-green-300 mb-2">Terminaison forcée :</p>
+                            <div class="code-block mb-2">kill -9 PID</div>
+                            <p class="text-xs text-gray-500">Envoie le signal **KILL (9)** qui arrête immédiatement le processus, sans lui laisser le temps de s'arrêter proprement (à utiliser seulement si `kill PID` ne fonctionne pas).</p>
+                        </div>
+                    </div>
+
                     <!-- Commande: systemctl -->
                     <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-green-400 transition command-card" onclick="toggleDetails(this)">
                          <div class="mb-3 flex justify-between items-center">
                             <h3 class="text-xl font-semibold text-white">systemctl</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">Contrôle le système d'initialisation **systemd** (gestion des services).</p>
+                        <p class="text-gray-400 mb-3">Outil principal pour contrôler le système d'initialisation **systemd** sur les distributions modernes (comme LMDE). Il gère l'état des services et des unités système.</p>
                         <div class="code-block">sudo systemctl restart apache2</div>
-                        <p class="text-sm text-gray-500 mt-2">Commandes clés : **start**, **stop**, **restart**, **enable**, **disable**.</p>
+                        <p class="text-sm text-gray-500 mt-2">Les commandes clés sont <strong>start</strong>, <strong>stop</strong>, <strong>restart</strong>, <strong>enable</strong> (activer au démarrage) et <strong>disable</strong> (désactiver au démarrage).</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
                             <p class="text-sm font-bold text-green-300 mb-2">État du service :</p>
                             <div class="code-block mb-2">systemctl status nom_service</div>
-                            <p class="text-xs text-gray-500">Vérifier l'état actuel d'un service (actif, inactif, etc.).</p>
+                            <p class="text-xs text-gray-500">Vérifie l'état actuel d'un service, si il est actif, les logs récents et le PID du processus principal.</p>
                         </div>
                     </div>
 
@@ -628,13 +685,13 @@
                             <h3 class="text-xl font-semibold text-white">top / htop</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">Surveille l'activité du système (processus, mémoire, CPU) en temps réel.</p>
+                        <p class="text-gray-400 mb-3">Surveillent en **temps réel** l'activité du système, affichant l'utilisation du CPU, de la mémoire, et la liste des processus triés par charge. **htop** est souvent préféré pour son interface plus lisible.</p>
                         <div class="code-block">htop</div>
-                        <p class="text-sm text-gray-500 mt-2">**htop** est une version plus conviviale de **top**.</p>
+                        <p class="text-sm text-gray-500 mt-2">Utilisez-les pour identifier les processus qui consomment le plus de ressources et les PID avant d'utiliser `kill`.</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
-                            <p class="text-sm font-bold text-green-300 mb-2">Raccourci htop :</p>
-                            <p class="text-xs text-gray-500">Appuyez sur **F4** pour filtrer la liste des processus par nom.</p>
+                            <p class="text-sm font-bold text-green-300 mb-2">Tuer un processus via htop :</p>
+                            <p class="text-xs text-gray-500">Dans htop, sélectionnez un processus, puis appuyez sur **F9** pour envoyer un signal de terminaison (équivalent à `kill`).</p>
                         </div>
                     </div>
                     
@@ -644,14 +701,14 @@
                             <h3 class="text-xl font-semibold text-white">df / du</h3>
                             <span class="text-xs text-gray-500">Cliquez pour plus</span>
                         </div>
-                        <p class="text-gray-400 mb-3">**df** (Disk Free) espace disponible. **du** (Disk Usage) espace utilisé par les fichiers.</p>
+                        <p class="text-gray-400 mb-3">**df** (Disk Free) affiche l'espace disque **disponible** sur les systèmes de fichiers montés. **du** (Disk Usage) affiche l'espace disque **utilisé** par des fichiers et répertoires.</p>
                         <div class="code-block">df -h ; du -sh *</div>
-                        <p class="text-sm text-gray-500 mt-2">L'option **-h** affiche les tailles lisibles par un humain.</p>
+                        <p class="text-sm text-gray-500 mt-2">L'option <strong>-h</strong> (human-readable) est essentielle pour un affichage en Mo, Go, etc.</p>
                          <!-- Détails supplémentaires -->
                         <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
-                            <p class="text-sm font-bold text-green-300 mb-2">Utilisation avancée :</p>
-                            <div class="code-block mb-2">du -h --max-depth=1</div>
-                            <p class="text-xs text-gray-500">Affiche la taille de chaque dossier de premier niveau dans le répertoire actuel.</p>
+                            <p class="text-sm font-bold text-green-300 mb-2">Trouver les plus gros dossiers :</p>
+                            <div class="code-block mb-2">du -h --max-depth=1 | sort -hr</div>
+                            <p class="text-xs text-gray-500">Affiche la taille de chaque sous-répertoire triée par taille décroissante (un outil puissant de nettoyage).</p>
                         </div>
                     </div>
                 </div>
