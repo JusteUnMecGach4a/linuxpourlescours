@@ -52,8 +52,9 @@
                 <a href="#section-3" class="text-yellow-400 hover:text-yellow-300 px-3 py-2 rounded-md text-sm font-medium transition duration-150 transform hover:bg-gray-700 hover:scale-105">Recherche</a>
                 <a href="#section-4" class="text-teal-400 hover:text-teal-300 px-3 py-2 rounded-md text-sm font-medium transition duration-150 transform hover:bg-gray-700 hover:scale-105">Texte/Pipes</a>
                 <a href="#section-5" class="text-pink-400 hover:text-pink-300 px-3 py-2 rounded-md text-sm font-medium transition duration-150 transform hover:bg-gray-700 hover:scale-105">Admin</a>
-                <a href="#section-6" class="text-green-400 hover:text-green-300 px-3 py-2 rounded-md text-sm font-medium transition duration-150 transform hover:bg-gray-700 hover:scale-105">Système</a>
+                <a href="#section-6" class="text-blue-400 hover:text-blue-300 px-3 py-2 rounded-md text-sm font-medium transition duration-150 transform hover:bg-gray-700 hover:scale-105">Réseau/SSH</a>
                 <a href="#section-7" class="text-orange-400 hover:text-orange-300 px-3 py-2 rounded-md text-sm font-medium transition duration-150 transform hover:bg-gray-700 hover:scale-105">Sécurité</a>
+                <a href="#section-8" class="text-green-400 hover:text-green-300 px-3 py-2 rounded-md text-sm font-medium transition duration-150 transform hover:bg-gray-700 hover:scale-105">Diagnostic</a>
             </div>
         </div>
     </nav>
@@ -643,11 +644,119 @@
             
             <!-- SEPARATEUR -->
             <hr class="border-gray-700 my-10">
+            
+            <!-- SECTION 6: Réseau et Connexion à Distance (SSH/SCP) -->
+            <section id="section-6" class="mb-12 pt-4">
+                <h2 class="text-3xl font-bold text-blue-400 border-b border-blue-500 pb-2 mb-6">
+                    6. Réseau et Connexion à Distance (SSH/SCP)
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Commande: ssh -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-blue-400 transition command-card" onclick="toggleDetails(this)">
+                         <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">ssh</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Secure Shell - Établit une **connexion sécurisée** et chiffrée vers un serveur distant, permettant l'exécution de commandes et l'administration à distance.</p>
+                        <div class="code-block">ssh user@adresse_ip</div>
+                        <p class="text-sm text-gray-500 mt-2">Utilisez **-p [PORT]** pour spécifier un port différent du port par défaut (22).</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-blue-300 mb-2">Connexion avec port personnalisé :</p>
+                            <div class="code-block mb-2">ssh utilisateur@serveur.com -p 2222</div>
+                            <p class="text-xs text-gray-500">Se connecte au serveur sur le port 2222. C'est une pratique courante de sécurité.</p>
+                        </div>
+                    </div>
 
-            <!-- SECTION 6: Informations Système Complémentaires -->
-             <section id="section-6" class="mb-12 pt-4">
+                    <!-- Commande: scp -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-blue-400 transition command-card" onclick="toggleDetails(this)">
+                         <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">scp</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Secure Copy - Permet de **copier des fichiers** de manière sécurisée et chiffrée entre un hôte local et un hôte distant, ou entre deux hôtes distants via SSH.</p>
+                        <div class="code-block">scp fichier.txt user@ip:~/destination/</div>
+                        <p class="text-sm text-gray-500 mt-2">La syntaxe est similaire à `cp` mais utilise des chemins distants (`user@host:path`).</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-blue-300 mb-2">Copie récursive d'un répertoire distant vers le local :</p>
+                            <div class="code-block mb-2">scp -r user@ip:/var/log/ /home/local_user/logs/</div>
+                            <p class="text-xs text-gray-500">Utilise l'option **-r** pour copier des dossiers entiers de manière récursive.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Commande: ssh-keygen -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-blue-400 transition command-card" onclick="toggleDetails(this)">
+                         <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">ssh-keygen</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Génère une **paire de clés SSH** (publique et privée) pour l'authentification sans mot de passe. C'est la méthode d'authentification la plus sécurisée.</p>
+                        <div class="code-block">ssh-keygen -t rsa -b 4096</div>
+                        <p class="text-sm text-gray-500 mt-2">L'option **-t** spécifie le type (rsa, ed25519) et **-b** la taille de la clé (4096 bits recommandé).</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-blue-300 mb-2">Copier la clé publique sur le serveur :</p>
+                            <div class="code-block mb-2">ssh-copy-id user@adresse_ip</div>
+                            <p class="text-xs text-gray-500">Un utilitaire simple pour installer votre clé publique sur le serveur distant (une fois que vous avez déjà généré la clé).</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SEPARATEUR -->
+            <hr class="border-gray-700 my-10">
+
+            <!-- SECTION 7: Sécurité et Pentest (Décalée) -->
+            <section id="section-7" class="mb-12 pt-4">
+                <h2 class="text-3xl font-bold text-orange-400 border-b border-orange-500 pb-2 mb-6">
+                    7. Sécurité et Pentest
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    <!-- Commande: John the Ripper (john) -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-orange-400 transition command-card" onclick="toggleDetails(this)">
+                        <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">john (John the Ripper)</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Outil de test de sécurité utilisé pour **détecter les mots de passe faibles** sur les systèmes Unix/Linux en effectuant des attaques par dictionnaire ou par force brute. Souvent utilisé après l'extraction des hachages.</p>
+                        <div class="code-block">john --wordlist=rockyou.txt hashes.txt</div>
+                        <p class="text-sm text-gray-500 mt-2">John travaille principalement sur des fichiers contenant des **hachages** de mots de passe (souvent extraits du fichier `/etc/shadow`).</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-orange-300 mb-2">Afficher les mots de passe crackés :</p>
+                            <div class="code-block mb-2">john --show hashes.txt</div>
+                            <p class="text-xs text-gray-500">Affiche uniquement les mots de passe que l'outil a réussi à déchiffrer dans la session précédente.</p>
+                        </div>
+                    </div>
+
+                    <!-- Commande: unshadow -->
+                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-orange-400 transition command-card" onclick="toggleDetails(this)">
+                        <div class="mb-3 flex justify-between items-center">
+                            <h3 class="text-xl font-semibold text-white">unshadow</h3>
+                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Commande utilitaire de John the Ripper. Elle combine les fichiers `/etc/passwd` et `/etc/shadow` en un seul fichier de format lisible par `john`.</p>
+                        <div class="code-block">sudo unshadow /etc/passwd /etc/shadow > hashes.txt</div>
+                        <p class="text-sm text-gray-500 mt-2">Le fichier de sortie `hashes.txt` contient les noms d'utilisateurs et leurs hachages associés, prêts à être analysés par **john**.</p>
+                         <!-- Détails supplémentaires -->
+                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
+                            <p class="text-sm font-bold text-orange-300 mb-2">Processus typique :</p>
+                            <p class="text-xs text-gray-500">1. Extraire les hachages avec **unshadow**. 2. Lancer l'outil **john** sur le fichier généré. 3. Utiliser `john --show` pour voir les résultats.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SEPARATEUR -->
+            <hr class="border-gray-700 my-10">
+
+            <!-- SECTION 8: Informations Système Complémentaires (Décalée) -->
+             <section id="section-8" class="mb-12 pt-4">
                 <h2 class="text-3xl font-bold text-green-400 border-b border-green-500 pb-2 mb-6">
-                    6. Système et Diagnostic
+                    8. Système et Diagnostic
                 </h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     
@@ -715,51 +824,6 @@
                             <p class="text-sm font-bold text-green-300 mb-2">Trouver les plus gros dossiers :</p>
                             <div class="code-block mb-2">du -h --max-depth=1 | sort -hr</div>
                             <p class="text-xs text-gray-500">Affiche la taille de chaque sous-répertoire triée par taille décroissante (un outil puissant de nettoyage).</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- SEPARATEUR -->
-            <hr class="border-gray-700 my-10">
-
-            <!-- SECTION 7: Sécurité et Pentest -->
-            <section id="section-7" class="mb-12 pt-4">
-                <h2 class="text-3xl font-bold text-orange-400 border-b border-orange-500 pb-2 mb-6">
-                    7. Sécurité et Pentest
-                </h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-                    <!-- Commande: John the Ripper (john) -->
-                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-orange-400 transition command-card" onclick="toggleDetails(this)">
-                        <div class="mb-3 flex justify-between items-center">
-                            <h3 class="text-xl font-semibold text-white">john (John the Ripper)</h3>
-                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
-                        </div>
-                        <p class="text-gray-400 mb-3">Outil de test de sécurité utilisé pour **détecter les mots de passe faibles** sur les systèmes Unix/Linux en effectuant des attaques par dictionnaire ou par force brute. Souvent utilisé après l'extraction des hachages.</p>
-                        <div class="code-block">john --wordlist=rockyou.txt hashes.txt</div>
-                        <p class="text-sm text-gray-500 mt-2">John travaille principalement sur des fichiers contenant des **hachages** de mots de passe (souvent extraits du fichier `/etc/shadow`).</p>
-                         <!-- Détails supplémentaires -->
-                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
-                            <p class="text-sm font-bold text-orange-300 mb-2">Afficher les mots de passe crackés :</p>
-                            <div class="code-block mb-2">john --show hashes.txt</div>
-                            <p class="text-xs text-gray-500">Affiche uniquement les mots de passe que l'outil a réussi à déchiffrer dans la session précédente.</p>
-                        </div>
-                    </div>
-
-                    <!-- Commande: unshadow -->
-                    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-orange-400 transition command-card" onclick="toggleDetails(this)">
-                        <div class="mb-3 flex justify-between items-center">
-                            <h3 class="text-xl font-semibold text-white">unshadow</h3>
-                            <span class="text-xs text-gray-500">Cliquez pour plus</span>
-                        </div>
-                        <p class="text-gray-400 mb-3">Commande utilitaire de John the Ripper. Elle combine les fichiers `/etc/passwd` et `/etc/shadow` en un seul fichier de format lisible par `john`.</p>
-                        <div class="code-block">sudo unshadow /etc/passwd /etc/shadow > hashes.txt</div>
-                        <p class="text-sm text-gray-500 mt-2">Le fichier de sortie `hashes.txt` contient les noms d'utilisateurs et leurs hachages associés, prêts à être analysés par **john**.</p>
-                         <!-- Détails supplémentaires -->
-                        <div class="extra-details hidden mt-4 pt-4 border-t border-gray-600">
-                            <p class="text-sm font-bold text-orange-300 mb-2">Processus typique :</p>
-                            <p class="text-xs text-gray-500">1. Extraire les hachages avec **unshadow**. 2. Lancer l'outil **john** sur le fichier généré. 3. Utiliser `john --show` pour voir les résultats.</p>
                         </div>
                     </div>
                 </div>
